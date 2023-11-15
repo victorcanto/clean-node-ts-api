@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { type AddAccountRepository } from '../../../../data/protocols/add-account-repository'
 import { MongoDbHelper } from '../helpers/mongodb.helper'
-import { AccountMongoDbRepository } from './account.repository'
+import { AccountMongoDbRepository } from './account-repository'
 
 const makeSut = (): AddAccountRepository => {
   return new AccountMongoDbRepository()
