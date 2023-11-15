@@ -1,6 +1,7 @@
 import { DbAddAccount } from '../../data/usecases/add-account/db-add-account.usecase'
 import { BcryptAdapter } from '../../infra/criptography/bcrypt-adapter'
-import { AccountMongoDbRepository } from '../../infra/db/mongodb/account-repository/account.repository'
+import { AccountMongoDbRepository } from '../../infra/db/mongodb/account-repository/account-repository'
+import { LogMongoDbRepository } from '../../infra/db/mongodb/log-repository/log-repository'
 import { SignUpController } from '../../presentation/controllers/signup/signup.controller'
 import { type Controller } from '../../presentation/protocols'
 import { EmailValidatorAdapter } from '../../utils/email-validator-adapter.util'
@@ -12,5 +13,6 @@ export const makeSignUpController = (): Controller => {
   const addAccountRepository = new AccountMongoDbRepository()
   const addAccount = new DbAddAccount(encrypter, addAccountRepository)
   const signUpController = new SignUpController(emailValidator, addAccount)
-  return new LogControllerDecorator(signUpController)
+  const logErrorRepository = new LogMongoDbRepository()
+  return new LogControllerDecorator(signUpController, logErrorRepository)
 }
