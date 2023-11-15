@@ -12,7 +12,7 @@ describe('CORS Middleware', () => {
   })
 
   beforeEach(async () => {
-    const accountCollection = MongoDbHelper.getCollection('accounts')
+    const accountCollection = await MongoDbHelper.getCollection('accounts')
     await accountCollection.deleteMany()
   })
 
