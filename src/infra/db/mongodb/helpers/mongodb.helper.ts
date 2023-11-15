@@ -2,9 +2,11 @@ import { type Collection, MongoClient } from 'mongodb'
 
 export const MongoDbHelper = {
   client: null as unknown as MongoClient,
+  uri: null as unknown as string,
 
   async connect (uri: string): Promise<void> {
     try {
+      this.uri = uri
       this.client = await MongoClient.connect(uri)
     } catch (error) {
       console.error('Failed to connect to MongoDB', error)
@@ -13,15 +15,17 @@ export const MongoDbHelper = {
 
   async disconnect (): Promise<void> {
     try {
-      if (this.client) {
-        await this.client.close()
-      }
+      await this.client.close()
+      this.client = null
     } catch (error) {
       console.error('Failed to disconnect to MongoDB', error)
     }
   },
 
-  getCollection (name: string): Collection {
+  async getCollection (name: string): Promise<Collection> {
+    if (!this.client) {
+      await this.connect(this.uri)
+    }
     return this.client.db().collection(name)
   },
 
