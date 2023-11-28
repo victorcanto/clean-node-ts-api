@@ -7,7 +7,7 @@ interface SutTypes {
   validationStubs: Validation[]
 }
 
-const makeValidationStub = (): Validation => {
+const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
     validate (input: any): Error | null | undefined {
       return null
@@ -17,7 +17,7 @@ const makeValidationStub = (): Validation => {
 }
 
 const makeSut = (): SutTypes => {
-  const validationStubs = [makeValidationStub(), makeValidationStub()]
+  const validationStubs = [makeValidation(), makeValidation()]
   const sut = new ValidationComposite(validationStubs)
   return {
     sut,
