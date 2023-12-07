@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { type AddAccountRepository } from '../../../../data/protocols/add-account-repository'
+import { type AddAccountRepository } from '../../../../data/protocols/db/add-account-repository.protocol'
 import { MongoDbHelper } from '../helpers/mongodb.helper'
 import { AccountMongoDbRepository } from './account-repository'
 
