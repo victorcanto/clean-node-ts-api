@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { type Collection } from 'mongodb'
 import { MongoDbHelper } from '../helpers/mongodb.helper'
-import { AccountMongoDbRepository } from './account-repository'
+import { AccountMongoDbRepository } from './account-mongodb-repository'
 
 let accountCollection: Collection
 
