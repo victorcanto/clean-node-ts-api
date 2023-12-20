@@ -2,3 +2,4 @@ export type { AddAccount, AddAccountModel } from '../../../domain/usecases/add-a
 export type { AccountModel } from '../../../domain/models/account.model'
 export type { Hasher } from '../../protocols/criptography/hasher.protocol'
 export type { AddAccountRepository } from '../../protocols/db/account/add-account-repository.protocol'
+export type { LoadAccountByEmailRepository } from '../../protocols/db/account/load-account-by-email-repository.protocol'
