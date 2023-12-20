@@ -1,3 +1,5 @@
 export { InvalidParamError } from './invalid-param.error'
 export { MissingParamError } from './missing-param.error'
 export { ServerError } from './server.error'
+export { UnauthorizedError } from './unauthorized.error'
+export { EmailInUseError } from './email-in-use.error'
