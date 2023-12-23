@@ -1,8 +1,8 @@
 import { SignUpController } from './signup.controller'
-import { EmailInUseError, MissingParamError, ServerError } from '../../errors'
+import { EmailInUseError, MissingParamError, ServerError } from '../../../errors'
 import { type HttpRequest, type AccountModel, type AddAccount, type AddAccountModel, type Validation, type Authentication } from './signup-protocols'
-import { badRequest, forbidden, ok, serverError } from '../../helpers'
-import { type AuthenticationModel } from '../../../domain/usecases/authentication.usecase'
+import { badRequest, forbidden, ok, serverError } from '../../../helpers'
+import { type AuthenticationModel } from '../../../../domain/usecases/authentication.usecase'
 
 interface SutTypes {
   sut: SignUpController
