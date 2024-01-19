@@ -23,36 +23,40 @@ const makeSut = (salt: number = 12): SutTypes => {
 }
 
 describe('Bcrypt Adapter', () => {
-  test('Should call bcrypt with correct values', async () => {
-    const { sut, salt } = makeSut()
-    const hashSpy = jest.spyOn(bcrypt, 'hash')
-    await sut.hash('any_value')
-    expect(hashSpy).toHaveBeenCalledWith('any_value', salt)
+  describe('hash()', () => {
+    test('Should call bcrypt with correct values', async () => {
+      const { sut, salt } = makeSut()
+      const hashSpy = jest.spyOn(bcrypt, 'hash')
+      await sut.hash('any_value')
+      expect(hashSpy).toHaveBeenCalledWith('any_value', salt)
+    })
+
+    test('Should return a hash on success', async () => {
+      const { sut } = makeSut()
+      const hash = await sut.hash('any_value')
+      expect(hash).toBe('hash')
+    })
+
+    test('Should throw if bcrypt throws', async () => {
+      const { sut } = makeSut()
+      jest.spyOn(bcrypt, 'hash').mockReturnValueOnce(Promise.reject(new Error()) as any)
+      const promise = sut.hash('any_value')
+      await expect(promise).rejects.toThrow()
+    })
   })
 
-  test('Should return a hash on success', async () => {
-    const { sut } = makeSut()
-    const hash = await sut.hash('any_value')
-    expect(hash).toBe('hash')
-  })
+  describe('compare()', () => {
+    test('Should call compare with correct values', async () => {
+      const { sut } = makeSut()
+      const compareSpy = jest.spyOn(bcrypt, 'compare')
+      await sut.compare('any_value', 'any_hash')
+      expect(compareSpy).toHaveBeenCalledWith('any_value', 'any_hash')
+    })
 
-  test('Should throw if bcrypt throws', async () => {
-    const { sut } = makeSut()
-    jest.spyOn(bcrypt, 'hash').mockReturnValueOnce(Promise.reject(new Error()) as any)
-    const promise = sut.hash('any_value')
-    await expect(promise).rejects.toThrow()
-  })
-
-  test('Should call compare with correct values', async () => {
-    const { sut } = makeSut()
-    const compareSpy = jest.spyOn(bcrypt, 'compare')
-    await sut.compare('any_value', 'any_hash')
-    expect(compareSpy).toHaveBeenCalledWith('any_value', 'any_hash')
-  })
-
-  test('Should return true when compare succeeds', async () => {
-    const { sut } = makeSut()
-    const isValid = await sut.compare('any_value', 'any_hash')
-    expect(isValid).toBe(true)
+    test('Should return true when compare succeeds', async () => {
+      const { sut } = makeSut()
+      const isValid = await sut.compare('any_value', 'any_hash')
+      expect(isValid).toBe(true)
+    })
   })
 })
