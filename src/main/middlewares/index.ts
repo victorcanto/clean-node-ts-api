@@ -1,3 +1,3 @@
-export { bodyParser } from './body-parser'
-export { contentType } from './content-type'
-export { cors } from './cors'
+export * from './body-parser'
+export * from './content-type'
+export * from './cors'
