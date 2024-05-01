@@ -3,7 +3,7 @@ import { type LoadSurveys, type SurveyModel } from './load-surveys-controller-pr
 import { LoadSurveysController } from './load-surveys.controller'
 import MockDate from 'mockdate'
 
-interface SutTypes {
+type SutTypes = {
   sut: LoadSurveysController
   loadSurveysStub: LoadSurveys
 }

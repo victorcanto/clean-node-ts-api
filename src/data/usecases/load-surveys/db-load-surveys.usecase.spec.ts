@@ -2,7 +2,7 @@ import MockDate from 'mockdate'
 import { type SurveyModel, type LoadSurveysRepository } from './db-load-surveys-protocols'
 import { DbLoadSurveys } from './db-load-surveys.usecase'
 
-interface SutTypes {
+type SutTypes = {
   sut: DbLoadSurveys
   loadSurveysRepositoryStub: LoadSurveysRepository
 }
