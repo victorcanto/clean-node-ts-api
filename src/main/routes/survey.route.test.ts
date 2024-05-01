@@ -27,6 +27,19 @@ const mockAccessToken = async (): Promise<string> => {
   return accessToken
 }
 
+const makeFakeSurveysData = (): any => ([
+  {
+    question: 'Question 1',
+    answers: [{
+      answer: 'Answer 1',
+      image: 'http://image-name.com'
+    }, {
+      answer: 'Answer 2'
+    }],
+    date: new Date()
+  }
+])
+
 describe('Survey Routes', () => {
   beforeAll(async () => {
     await MongoDbHelper.connect(process.env.MONGO_URL as string)
@@ -82,6 +95,23 @@ describe('Survey Routes', () => {
       await request(app)
         .get('/api/surveys')
         .expect(403)
+    })
+
+    test('Should return 204 on load surveys with valid accessToken when there are no surveys', async () => {
+      const accessToken = await mockAccessToken()
+      await request(app)
+        .get('/api/surveys')
+        .set('x-access-token', accessToken)
+        .expect(204)
+    })
+
+    test('Should return 200 on load surveys with valid accessToken when there are surveys', async () => {
+      const accessToken = await mockAccessToken()
+      await surveyCollection.insertMany(makeFakeSurveysData())
+      await request(app)
+        .get('/api/surveys')
+        .set('x-access-token', accessToken)
+        .expect(200)
     })
   })
 })
