@@ -1,4 +1,5 @@
 import { type Collection } from 'mongodb'
+import MockDate from 'mockdate'
 import { MongoDbHelper } from '../helpers/mongodb.helper'
 import { SurveyMongoDbRepository } from './survey-mongodb-repository'
 import { type AddSurveyModel } from '../../../../domain/usecases/add-survey.usecase'
@@ -10,7 +11,8 @@ const makeSurveyData = (): AddSurveyModel => ({
   answers: [{
     image: 'any_image',
     answer: 'any_answer'
-  }, { answer: 'other_answer' }]
+  }, { answer: 'other_answer' }],
+  date: new Date()
 })
 
 const makeSut = (): SurveyMongoDbRepository => {
@@ -19,10 +21,12 @@ const makeSut = (): SurveyMongoDbRepository => {
 
 describe('Account Mongo Repository', () => {
   beforeAll(async () => {
+    MockDate.set(new Date())
     await MongoDbHelper.connect(process.env.MONGO_URL as string)
   })
 
   afterAll(async () => {
+    MockDate.reset()
     await MongoDbHelper.disconnect()
   })
 
