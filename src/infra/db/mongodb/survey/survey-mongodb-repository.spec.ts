@@ -79,4 +79,15 @@ describe('Account Mongo Repository', () => {
       expect(surveys.length).toBe(0)
     })
   })
+
+  describe('loadById()', () => {
+    test('Should load survey by id on success', async () => {
+      const sut = makeSut()
+      const surveyData = makeSurveyData()
+      const { insertedId } = await surveyCollection.insertOne(surveyData)
+      const survey = await sut.loadById(insertedId.toString())
+      expect(survey).toBeTruthy()
+      expect(survey.question).toBe(surveyData.question)
+    })
+  })
 })
