@@ -3,6 +3,6 @@ import { type AddSurvey } from '../../../../../domain/usecases/add-survey.usecas
 import { SurveyMongoDbRepository } from '../../../../../infra/db/mongodb/survey/survey-mongodb-repository'
 
 export const makeDbAddSurvey = (): AddSurvey => {
-  const addSurveyRepository = new SurveyMongoDbRepository()
-  return new DbAddSurvey(addSurveyRepository)
+  const surveyMongoDbRepository = new SurveyMongoDbRepository()
+  return new DbAddSurvey(surveyMongoDbRepository)
 }
