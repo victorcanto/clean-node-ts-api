@@ -1,5 +1,5 @@
-import { EmailInUseError } from '../../../errors'
-import { badRequest, serverError, ok, forbidden } from '../../../helpers'
+import { EmailInUseError } from '@/presentation/errors'
+import { badRequest, serverError, ok, forbidden } from '@/presentation/helpers'
 import {
   type Controller,
   type HttpRequest,

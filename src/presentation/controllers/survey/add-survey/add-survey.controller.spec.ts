@@ -1,8 +1,7 @@
-import MockDate from 'mockdate'
-import { badRequest, noContent, serverError } from '../../../helpers'
-import { type HttpRequest, type Controller, type Validation } from '../../../protocols'
-import { type AddSurvey, type AddSurveyModel } from './add-survey-controller-protocols'
+import { badRequest, noContent, serverError } from '@/presentation/helpers'
+import { type Controller, type HttpRequest, type Validation, type AddSurvey, type AddSurveyModel } from './add-survey-controller-protocols'
 import { AddSurveyController } from './add-survey.controller'
+import MockDate from 'mockdate'
 
 interface SutTypes {
   sut: Controller

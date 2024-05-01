@@ -1,4 +1,5 @@
-import { MongoDbHelper } from '../infra/db/mongodb/helpers/mongodb.helper'
+import 'module-alias/register'
+import { MongoDbHelper } from '@/infra/db/mongodb/helpers/mongodb.helper'
 import env from './config/env'
 
 MongoDbHelper.connect(env.mongoUrl).then(async () => {

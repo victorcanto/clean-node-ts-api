@@ -1,6 +1,6 @@
-import { type Collection } from 'mongodb'
-import { MongoDbHelper } from '../helpers/mongodb.helper'
+import { MongoDbHelper } from '@/infra/db/mongodb/helpers/mongodb.helper'
 import { AccountMongoDbRepository } from './account-mongodb-repository'
+import { type Collection } from 'mongodb'
 
 let accountCollection: Collection
 

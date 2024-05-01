@@ -1,6 +1,6 @@
-import { type AuthenticationModel } from '../../../../domain/usecases/authentication.usecase'
-import { MissingParamError } from '../../../errors'
-import { serverError, badRequest, ok, unauthorized } from '../../../helpers'
+import { type AuthenticationModel } from '@/domain/usecases/authentication.usecase'
+import { MissingParamError } from '@/presentation/errors'
+import { serverError, badRequest, ok, unauthorized } from '@/presentation/helpers'
 import { type Authentication, type HttpRequest, type Controller, type Validation } from './login-protocols'
 import { LoginController } from './login.controller'
 

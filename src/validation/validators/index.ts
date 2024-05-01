@@ -1,5 +1,5 @@
+export * from '@/presentation/protocols/validation.protocol'
 export * from './compare-fields-validation'
 export * from './email-validation'
 export * from './required-field-validation'
-export * from '../../presentation/protocols/validation.protocol'
 export * from './validation-composite'

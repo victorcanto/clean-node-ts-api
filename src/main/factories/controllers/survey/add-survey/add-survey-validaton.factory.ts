@@ -1,6 +1,6 @@
-import { RequiredFieldValidation } from '../../../../../validation/validators/required-field-validation'
-import { type Validation } from '../../../../../presentation/protocols/validation.protocol'
-import { ValidationComposite } from '../../../../../validation/validators/validation-composite'
+import { RequiredFieldValidation } from '@/validation/validators/required-field-validation'
+import { ValidationComposite } from '@/validation/validators/validation-composite'
+import { type Validation } from '@/presentation/protocols/validation.protocol'
 
 export const makeAddSurveyValidation = (): Validation => {
   const validations: Validation[] = []

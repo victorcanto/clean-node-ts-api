@@ -1,16 +1,17 @@
 {
-    "extends": "standard-with-typescript",
-    "parserOptions": {
-        "project": "./tsconfig.eslint.json"
-    },
-    "overrides": [
-        {
-            "files": ["src/**/*.ts"],
-            "rules": {
-              "@typescript-eslint/strict-boolean-expressions": "off",
-              "@typescript-eslint/no-misused-promises": "off",
-              "@typescript-eslint/no-floating-promises": "off"
-            }
-        }
-    ]
+  "extends": "standard-with-typescript",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "ignorePatterns": ["jest.config.ts"],
+  "overrides": [
+    {
+      "files": ["src/**/*.ts"],
+      "rules": {
+        "@typescript-eslint/strict-boolean-expressions": "off",
+        "@typescript-eslint/no-misused-promises": "off",
+        "@typescript-eslint/no-floating-promises": "off"
+      }
+    }
+  ]
 }
