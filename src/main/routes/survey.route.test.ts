@@ -8,7 +8,7 @@ import env from '../config/env'
 let surveyCollection: Collection
 let accountCollection: Collection
 
-const mockAccessToken = async (): Promise<string> => {
+const makeAccessToken = async (): Promise<string> => {
   const res = await accountCollection.insertOne({
     name: 'Victor',
     email: 'victorscanto@gmail.com',
@@ -73,7 +73,7 @@ describe('Survey Routes', () => {
     })
 
     test('Should return 204 on add survey with valid accessToken', async () => {
-      const accessToken = await mockAccessToken()
+      const accessToken = await makeAccessToken()
       await request(app)
         .post('/api/surveys')
         .set('x-access-token', accessToken)
@@ -98,7 +98,7 @@ describe('Survey Routes', () => {
     })
 
     test('Should return 204 on load surveys with valid accessToken when there are no surveys', async () => {
-      const accessToken = await mockAccessToken()
+      const accessToken = await makeAccessToken()
       await request(app)
         .get('/api/surveys')
         .set('x-access-token', accessToken)
@@ -106,7 +106,7 @@ describe('Survey Routes', () => {
     })
 
     test('Should return 200 on load surveys with valid accessToken when there are surveys', async () => {
-      const accessToken = await mockAccessToken()
+      const accessToken = await makeAccessToken()
       await surveyCollection.insertMany(makeFakeSurveysData())
       await request(app)
         .get('/api/surveys')
