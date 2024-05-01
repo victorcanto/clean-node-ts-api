@@ -15,6 +15,24 @@ const makeSurveyData = (): AddSurveyModel => ({
   date: new Date()
 })
 
+const makeSurveysData = (): AddSurveyModel[] => {
+  return [{
+    question: 'any_question',
+    answers: [{
+      image: 'any_image',
+      answer: 'any_answer'
+    }],
+    date: new Date()
+  }, {
+    question: 'other_question',
+    answers: [{
+      image: 'other_image',
+      answer: 'other_answer'
+    }],
+    date: new Date()
+  }]
+}
+
 const makeSut = (): SurveyMongoDbRepository => {
   return new SurveyMongoDbRepository()
 }
@@ -35,10 +53,24 @@ describe('Account Mongo Repository', () => {
     await surveyCollection.deleteMany()
   })
 
-  test('Should add a survey on success', async () => {
-    const sut = makeSut()
-    await sut.add(makeSurveyData())
-    const survey = await surveyCollection.findOne({ question: 'any_question' })
-    expect(survey).toBeTruthy()
+  describe('add()', () => {
+    test('Should add a survey on success', async () => {
+      const sut = makeSut()
+      await sut.add(makeSurveyData())
+      const survey = await surveyCollection.findOne({ question: 'any_question' })
+      expect(survey).toBeTruthy()
+    })
+  })
+
+  describe('loadAll()', () => {
+    test('Should load all surveys on success', async () => {
+      const sut = makeSut()
+      const surveysData = makeSurveysData()
+      await surveyCollection.insertMany(surveysData)
+      const surveys = await sut.loadAll()
+      expect(surveys.length).toBe(2)
+      expect(surveys[0].question).toBe(surveysData[0].question)
+      expect(surveys[1].question).toBe(surveysData[1].question)
+    })
   })
 })
