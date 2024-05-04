@@ -1,4 +1,4 @@
-import { type LoadAccountByToken } from '@/domain/usecases/account/load-account-by-token'
+import { type LoadAccountByToken } from '@/domain/usecases/account/load-account-by-token.usecase'
 import { DbLoadAccountByToken } from '@/data/usecases/account/load-account-by-token/db-load-account-by-token'
 import { JwtAdapter } from '@/infra/criptography/jwt/jwt-adapter'
 import { AccountMongoDbRepository } from '@/infra/db/mongodb/account/account-mongodb-repository'

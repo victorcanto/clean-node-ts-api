@@ -4,11 +4,12 @@ import request from 'supertest'
 import { MongoDbHelper } from '@/infra/db/mongodb/helpers/mongodb.helper'
 import env from '@/main/config/env'
 import app from '@/main/config/app'
+import { mockAddSurveyParams } from '@/domain/test'
 
 let surveyCollection: Collection
 let accountCollection: Collection
 
-const makeAccessToken = async (): Promise<string> => {
+const mockAccessToken = async (): Promise<string> => {
   const res = await accountCollection.insertOne({
     name: 'Victor',
     email: 'victorscanto@gmail.com',
@@ -25,19 +26,6 @@ const makeAccessToken = async (): Promise<string> => {
   })
   return accessToken
 }
-
-const makeFakeSurveyData = (): any => (
-  {
-    question: 'Question 1',
-    answers: [{
-      answer: 'Answer 1',
-      image: 'http://image-name.com'
-    }, {
-      answer: 'Answer 2'
-    }],
-    date: new Date()
-  }
-)
 
 describe('Survey Routes', () => {
   beforeAll(async () => {
@@ -66,8 +54,8 @@ describe('Survey Routes', () => {
     })
 
     test('Should return 200 on save survey with accessToken', async () => {
-      const accessToken = await makeAccessToken()
-      const surveyData = makeFakeSurveyData()
+      const accessToken = await mockAccessToken()
+      const surveyData = mockAddSurveyParams()
       const res = await surveyCollection.insertOne(surveyData)
       await request(app)
         .put(`/api/surveys/${res.insertedId.toString()}/results`)

@@ -4,32 +4,20 @@ import { MongoDbHelper } from '@/infra/db/mongodb/helpers/mongodb.helper'
 import { SurveyResultMongoDbRepository } from './survey-result-mongodb-repository'
 import { type Collection } from 'mongodb'
 import MockDate from 'mockdate'
+import { mockAddAccountParams, mockAddSurveyParams } from '@/domain/test'
 
 let surveyCollection: Collection
 let surveyResultCollection: Collection
 let accountCollection: Collection
 
-const makeSurvey = async (): Promise<SurveyModel> => {
-  const survey = {
-    question: 'any_question',
-    answers: [{
-      image: 'any_image',
-      answer: 'any_answer'
-    }, {
-      answer: 'other_answer'
-    }],
-    date: new Date()
-  }
+const mockSurvey = async (): Promise<SurveyModel> => {
+  const survey = mockAddSurveyParams()
   const res = await surveyCollection.insertOne(survey)
   return { id: res.insertedId.toString(), ...survey }
 }
 
-const makeAccount = async (): Promise<AccountModel> => {
-  const account = {
-    name: 'any_name',
-    email: 'any_email@email.com',
-    password: 'any_password'
-  }
+const mockAccount = async (): Promise<AccountModel> => {
+  const account = mockAddAccountParams()
   const res = await accountCollection.insertOne(account)
   return { id: res.insertedId.toString(), ...account }
 }
@@ -60,8 +48,8 @@ describe('Account Mongo Repository', () => {
 
   describe('save()', () => {
     test('Should add a survey if its new', async () => {
-      const survey = await makeSurvey()
-      const account = await makeAccount()
+      const survey = await mockSurvey()
+      const account = await mockAccount()
       const sut = makeSut()
       const surveyResult = await sut.save({
         surveyId: survey.id,
@@ -75,8 +63,8 @@ describe('Account Mongo Repository', () => {
     })
 
     test('Should add a survey if its not new', async () => {
-      const survey = await makeSurvey()
-      const account = await makeAccount()
+      const survey = await mockSurvey()
+      const account = await mockAccount()
       const res = await surveyResultCollection.insertOne({
         surveyId: survey.id,
         accountId: account.id,
