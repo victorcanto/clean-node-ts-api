@@ -1,4 +1,4 @@
-import { type AddSurveyModel } from '@/domain/usecases/survey/add-survey.usecase'
+import { type AddSurveyParams } from '@/domain/usecases/survey/add-survey.usecase'
 import { MongoDbHelper } from '@/infra/db/mongodb/helpers/mongodb.helper'
 import { SurveyMongoDbRepository } from './survey-mongodb-repository'
 import { type Collection } from 'mongodb'
@@ -6,7 +6,7 @@ import MockDate from 'mockdate'
 
 let surveyCollection: Collection
 
-const makeSurveyData = (): AddSurveyModel => ({
+const makeSurveyData = (): AddSurveyParams => ({
   question: 'any_question',
   answers: [{
     image: 'any_image',
@@ -15,7 +15,7 @@ const makeSurveyData = (): AddSurveyModel => ({
   date: new Date()
 })
 
-const makeSurveysData = (): AddSurveyModel[] => {
+const makeSurveysData = (): AddSurveyParams[] => {
   return [{
     question: 'any_question',
     answers: [{

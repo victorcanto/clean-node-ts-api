@@ -1,4 +1,4 @@
-import { type AuthenticationModel } from '@/domain/usecases/account/authentication.usecase'
+import { type AuthenticationParams } from '@/domain/usecases/account/authentication.usecase'
 import { MissingParamError } from '@/presentation/errors'
 import { serverError, badRequest, ok, unauthorized } from '@/presentation/helpers'
 import { type Authentication, type HttpRequest, type Controller, type Validation } from './login-protocols'
@@ -39,7 +39,7 @@ const makeValidation = (): Validation => {
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (authentication: AuthenticationModel): Promise<string> {
+    async auth (authentication: AuthenticationParams): Promise<string> {
       return 'any_token'
     }
   }
