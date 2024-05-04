@@ -8,10 +8,11 @@ type SutTypes = {
   loadSurveyByIdStub: LoadSurveyById
 }
 
-const makeFakeRequest = (): HttpRequest => ({
+const makeFakeRequest = (body: { answer: string } = { answer: 'any_answer' }): HttpRequest => ({
   params: {
     surveyId: 'any_survey_id'
-  }
+  },
+  body
 })
 
 const makeFakeSurvey = (): SurveyModel => ({
@@ -65,5 +66,11 @@ describe('SaveSurveyResult Controller', () => {
     const fakeRequest = makeFakeRequest()
     const httpResponse = await sut.handle(fakeRequest)
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('Should return 403 if an invalid answer is provided', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle(makeFakeRequest({ answer: 'wrong_answer' }))
+    expect(httpResponse).toEqual(forbidden(new InvalidParamError('answer')))
   })
 })
