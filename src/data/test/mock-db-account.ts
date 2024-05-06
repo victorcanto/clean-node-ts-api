@@ -4,8 +4,6 @@ import { type AddAccountRepository } from '@/data/protocols/db/account/add-accou
 import { type UpdateAccessTokenRepository } from '@/data/protocols/db/account/update-access-token-repository.protocol'
 import { type LoadAccountByTokenRepository } from '@/data/protocols/db/account/load-account-by-token-repository.protocol'
 
-type ReturnNull = { returnNull: boolean }
-
 export const mockAddAccountRepository = (): AddAccountRepository => {
   class AddAccountRepositoryStub implements AddAccountRepository {
     async add (accountData: AddAccountParams): Promise<AccountModel> {
@@ -15,10 +13,10 @@ export const mockAddAccountRepository = (): AddAccountRepository => {
   return new AddAccountRepositoryStub()
 }
 
-export const mockLoadAccountByEmailRepository = (options?: ReturnNull): LoadAccountByEmailRepository => {
+export const mockLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
     async loadByEmail (email: string): Promise<AccountModel | null> {
-      return await Promise.resolve(options?.returnNull ? null : mockAccountModel())
+      return await Promise.resolve(mockAccountModel())
     }
   }
   return new LoadAccountByEmailRepositoryStub()
