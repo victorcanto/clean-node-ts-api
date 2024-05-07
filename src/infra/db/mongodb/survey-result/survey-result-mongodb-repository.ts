@@ -177,6 +177,6 @@ export class SurveyResultMongoDbRepository implements SaveSurveyResultRepository
       .build()
 
     const surveyResult = await surveyResultCollection.aggregate(query).toArray()
-    return surveyResult?.length ? MongoDbHelper.map(surveyResult[0]) : null
+    return surveyResult.length ? MongoDbHelper.map(surveyResult[0]) : null
   }
 }
