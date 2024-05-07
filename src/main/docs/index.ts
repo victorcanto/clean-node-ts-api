@@ -8,9 +8,11 @@ import {
   surveyAnswerSchema,
   surveySchema,
   surveysSchema,
-  addSurveyParamsSchema
+  addSurveyParamsSchema,
+  saveSurveyParamsSchema,
+  surveyResultSchema
 } from './schemas'
-import { loginPath, signUpPath, surveyPath } from './paths'
+import { loginPath, signUpPath, surveyPath, surveyResultPath } from './paths'
 
 export default {
   openapi: '3.0.0',
@@ -35,7 +37,8 @@ export default {
   paths: {
     '/login': loginPath,
     '/signup': signUpPath,
-    '/surveys': surveyPath
+    '/surveys': surveyPath,
+    '/surveys/{surveyId}/results': surveyResultPath
   },
   schemas: {
     account: accountSchema,
@@ -43,6 +46,8 @@ export default {
     surveys: surveysSchema,
     surveyAnswer: surveyAnswerSchema,
     addSurveyParams: addSurveyParamsSchema,
+    saveSurveyParams: saveSurveyParamsSchema,
+    surveyResult: surveyResultSchema,
     loginParams: loginParamsSchema,
     signUpParams: signUpParamsSchema,
     error: errorSchema
