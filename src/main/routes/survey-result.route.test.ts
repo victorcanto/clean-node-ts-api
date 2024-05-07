@@ -68,10 +68,20 @@ describe('Survey Routes', () => {
   })
 
   describe('GET /surveys/:surveyId/results', () => {
-    test('Should return 403 on save survey without accessToken', async () => {
+    test('Should return 403 on load survey without accessToken', async () => {
       await request(app)
         .get('/api/surveys/any_id/results')
         .expect(403)
+    })
+
+    test('Should return 200 on load survey with accessToken', async () => {
+      const accessToken = await mockAccessToken()
+      const surveyData = mockAddSurveyParams()
+      const res = await surveyCollection.insertOne(surveyData)
+      await request(app)
+        .get(`/api/surveys/${res.insertedId.toString()}/results`)
+        .set('x-access-token', accessToken)
+        .expect(200)
     })
   })
 })
