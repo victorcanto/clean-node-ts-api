@@ -2,7 +2,7 @@ import { type SurveyModel } from '@/domain/models/survey.model'
 import { type AccountModel } from '@/domain/models/account.model'
 import { MongoDbHelper } from '@/infra/db/mongodb/helpers/mongodb.helper'
 import { SurveyResultMongoDbRepository } from './survey-result-mongodb-repository'
-import { type Collection } from 'mongodb'
+import { ObjectId, type Collection } from 'mongodb'
 import MockDate from 'mockdate'
 import { mockAddAccountParams, mockAddSurveyParams } from '@/domain/test'
 
@@ -13,13 +13,13 @@ let accountCollection: Collection
 const mockSurvey = async (): Promise<SurveyModel> => {
   const survey = mockAddSurveyParams()
   const res = await surveyCollection.insertOne(survey)
-  return { id: res.insertedId.toString(), ...survey }
+  return MongoDbHelper.map({ id: res.insertedId.toString(), ...survey })
 }
 
 const mockAccount = async (): Promise<AccountModel> => {
   const account = mockAddAccountParams()
   const res = await accountCollection.insertOne(account)
-  return { id: res.insertedId.toString(), ...account }
+  return MongoDbHelper.map({ id: res.insertedId.toString(), ...account })
 }
 
 const makeSut = (): SurveyResultMongoDbRepository => {
@@ -58,16 +58,18 @@ describe('Account Mongo Repository', () => {
         date: new Date()
       })
       expect(surveyResult).toBeTruthy()
-      expect(surveyResult.id).toBeTruthy()
-      expect(surveyResult.answer).toBe(survey.answers[0].answer)
+      expect(surveyResult.surveyId).toEqual(survey.id)
+      expect(surveyResult.answers[0].answer).toBe(survey.answers[0].answer)
+      expect(surveyResult.answers[0].count).toBe(1)
+      expect(surveyResult.answers[0].percent).toBe(100)
     })
 
     test('Should add a survey if its not new', async () => {
       const survey = await mockSurvey()
       const account = await mockAccount()
-      const res = await surveyResultCollection.insertOne({
-        surveyId: survey.id,
-        accountId: account.id,
+      await surveyResultCollection.insertOne({
+        surveyId: new ObjectId(survey.id),
+        accountId: new ObjectId(account.id),
         answer: survey.answers[0].answer,
         date: new Date()
       })
@@ -79,8 +81,10 @@ describe('Account Mongo Repository', () => {
         date: new Date()
       })
       expect(surveyResult).toBeTruthy()
-      expect(surveyResult.id).toEqual(res.insertedId)
-      expect(surveyResult.answer).toBe(survey.answers[1].answer)
+      expect(surveyResult.surveyId).toEqual(survey.id)
+      expect(surveyResult.answers[0].answer).toBe(survey.answers[1].answer)
+      expect(surveyResult.answers[0].count).toBe(1)
+      expect(surveyResult.answers[0].percent).toBe(100)
     })
   })
 })
