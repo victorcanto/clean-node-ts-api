@@ -1,6 +1,6 @@
 import { type SurveyModel } from '@/domain/models/survey.model'
 import { type AccountModel } from '@/domain/models/account.model'
-import { MongoDbHelper } from '@/infra/db/mongodb/helpers/mongodb.helper'
+import { MongoDbHelper } from '@/infra/db/mongodb/helpers'
 import { SurveyResultMongoDbRepository } from './survey-result-mongodb-repository'
 import { ObjectId, type Collection } from 'mongodb'
 import MockDate from 'mockdate'

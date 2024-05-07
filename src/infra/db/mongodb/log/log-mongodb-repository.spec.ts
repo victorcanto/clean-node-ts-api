@@ -1,5 +1,5 @@
 import { type LogErrorRepository } from '@/data/protocols/db/log/log-error-repository.protocol'
-import { MongoDbHelper } from '@/infra/db/mongodb/helpers/mongodb.helper'
+import { MongoDbHelper } from '@/infra/db/mongodb/helpers'
 import { LogMongoDbRepository } from './log-mongodb-repository'
 import { type Collection } from 'mongodb'
 

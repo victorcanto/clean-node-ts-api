@@ -4,7 +4,7 @@ import { type AddAccountRepository } from '@/data/protocols/db/account/add-accou
 import { type LoadAccountByEmailRepository } from '@/data/protocols/db/account/load-account-by-email-repository.protocol'
 import { type UpdateAccessTokenRepository } from '@/data/protocols/db/account/update-access-token-repository.protocol'
 import { type LoadAccountByTokenRepository } from '@/data/usecases/account/load-account-by-token/db-load-account-by-token-protocols'
-import { MongoDbHelper } from '@/infra/db/mongodb/helpers/mongodb.helper'
+import { MongoDbHelper } from '@/infra/db/mongodb/helpers'
 import { ObjectId } from 'mongodb'
 
 export class AccountMongoDbRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository, LoadAccountByTokenRepository {

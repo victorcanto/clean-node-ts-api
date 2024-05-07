@@ -1,4 +1,4 @@
-import { MongoDbHelper } from '@/infra/db/mongodb/helpers/mongodb.helper'
+import { MongoDbHelper } from '@/infra/db/mongodb/helpers'
 import { AccountMongoDbRepository } from './account-mongodb-repository'
 import { type Collection } from 'mongodb'
 import { mockAddAccountParams, mockAddAccountParamsWithToken, mockAddAccountParamsWithTokenAndRole } from '@/domain/test'

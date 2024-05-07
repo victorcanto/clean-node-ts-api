@@ -1,7 +1,7 @@
 import { type Collection } from 'mongodb'
 import { sign } from 'jsonwebtoken'
 import request from 'supertest'
-import { MongoDbHelper } from '@/infra/db/mongodb/helpers/mongodb.helper'
+import { MongoDbHelper } from '@/infra/db/mongodb/helpers'
 import env from '@/main/config/env'
 import app from '@/main/config/app'
 

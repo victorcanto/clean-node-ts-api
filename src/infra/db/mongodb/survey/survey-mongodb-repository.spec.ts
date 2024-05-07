@@ -1,4 +1,4 @@
-import { MongoDbHelper } from '@/infra/db/mongodb/helpers/mongodb.helper'
+import { MongoDbHelper } from '@/infra/db/mongodb/helpers'
 import { SurveyMongoDbRepository } from './survey-mongodb-repository'
 import { type Collection } from 'mongodb'
 import MockDate from 'mockdate'
